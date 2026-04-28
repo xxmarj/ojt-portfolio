@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OJT E-Portfolio </title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f0e;
+    --bg2: #151817;
+    --bg3: #1c201e;
+    --accent: #5DCAA5;
+    --accent2: #1D9E75;
+    --accent3: #9FE1CB;
+    --text: #e8ede9;
+    --text2: #8fa897;
+    --text3: #5a6e60;
+    --border: rgba(93,202,165,0.15);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,15,14,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: .02em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text2);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 22px; height: 1.5px; background: var(--text2); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .hero-title em { color: var(--accent); font-style: italic; }
+  .hero-body { font-size: 15px; color: var(--text2); max-width: 440px; margin-bottom: 2rem; }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+  }
+  .hero-stat-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); }
+  .hero-stat-val { font-family: var(--serif); font-size: 22px; color: var(--accent); }
+  .hero-deco {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .hero-deco-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: border-color .2s;
+  }
+  .hero-deco-card:hover { border-color: var(--accent2); }
+  .hero-deco-card:first-child { grid-column: 1 / -1; }
+  .hdc-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); margin-bottom: .5rem; }
+  .hdc-val { font-family: var(--serif); font-size: 15px; color: var(--accent3); }
+  .bg-ring {
+    position: absolute;
+    right: -200px; top: 50%;
+    transform: translateY(-50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    opacity: .4;
+  }
+  .bg-ring2 {
+    position: absolute;
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    opacity: .3;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+  .section-tag::after { content:''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.15;
+    margin-bottom: .75rem;
+  }
+  .section-sub { font-size: 14px; color: var(--text2); max-width: 540px; margin-bottom: 3rem; }
+
+  /* ── MEMBERS GRID ── */
+  #members { background: var(--bg2); }
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .member-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    transition: border-color .25s, transform .25s;
+    cursor: default;
+  }
+  .member-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .member-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent2), #085041);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--accent3);
+    margin-bottom: 1rem;
+    border: 2px solid var(--border);
+  }
+  .member-name { font-family: var(--serif); font-size: 17px; margin-bottom: 3px; }
+  .member-role { font-size: 12px; letter-spacing: .06em; color: var(--accent); text-transform: uppercase; margin-bottom: .75rem; }
+  .member-course { font-size: 13px; color: var(--text2); }
+  .member-email { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .member-bio { font-size: 13px; color: var(--text2); margin-top: .875rem; line-height: 1.65; border-top: 1px solid var(--border); padding-top: .875rem; }
+
+  /* ── COMPANY ── */
+  .company-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .info-block { margin-bottom: 2rem; }
+  .info-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .4rem; }
+  .info-val { font-size: 16px; color: var(--text); }
+  .info-val-sm { font-size: 14px; color: var(--text2); line-height: 1.65; }
+  .highlight-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+  .highlight-box p { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg2); }
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+  }
+  .project-num {
+    font-family: var(--serif);
+    font-size: 48px;
+    color: var(--border);
+    line-height: 1;
+    float: right;
+    margin: -4px 0 0 1rem;
+  }
+  .project-title { font-family: var(--serif); font-size: 20px; margin-bottom: .5rem; }
+  .project-body { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 11px; letter-spacing: .06em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--accent3);
+  }
+
+  /* ── DELIVERABLES ── */
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .deliverable-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color .2s;
+  }
+  .deliverable-card:hover { border-color: var(--accent); }
+  .del-icon { font-size: 24px; margin-bottom: .75rem; }
+  .del-title { font-family: var(--serif); font-size: 16px; margin-bottom: .5rem; }
+  .del-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .del-link { display: inline-block; margin-top: .75rem; font-size: 12px; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .del-link:hover { border-color: var(--accent); }
+
+  /* ── LEARNING ── */
+  #learning { background: var(--bg2); }
+  .learning-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .skill-list { list-style: none; }
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-item:last-child { border-bottom: none; }
+  .skill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .skill-name { font-size: 14px; }
+  .skill-note { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .narrative-block { font-size: 14px; color: var(--text2); line-height: 1.8; }
+  .narrative-block p + p { margin-top: 1rem; }
+  blockquote {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--accent3);
+    font-style: italic;
+  }
+
+  /* ── TOOLS ── */
+  .tools-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .tool-group-title { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .tool-item {
+    padding: .625rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+  }
+  .tool-item:last-child { border-bottom: none; }
+  .tool-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
+
+  /* ── SOLUTIONS ── */
+  #solutions { background: var(--bg2); }
+  .solution-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .solution-label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+  .solution-title { font-family: var(--serif); font-size: 19px; margin-bottom: .75rem; }
+  .solution-body { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+  /* ── REFLECTION ── */
+  .reflection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .reflect-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+  .reflect-heading { font-family: var(--serif); font-size: 17px; margin-bottom: .875rem; color: var(--accent3); }
+  .reflect-body { font-size: 14px; color: var(--text2); line-height: 1.7; }
+  .final-quote {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 700px;
+    margin: 3rem auto 0;
+  }
+  .final-quote q {
+    font-family: var(--serif);
+    font-size: clamp(20px, 3vw, 30px);
+    color: var(--accent3);
+    font-style: italic;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .final-quote cite { font-size: 13px; color: var(--text3); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  footer p { font-size: 13px; color: var(--text3); }
+  footer span { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px){
+    .hero-grid, .company-layout, .learning-grid, .reflection-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tools-cols { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-deco { display: none; }
+    .bg-ring, .bg-ring2 { display: none; }
+  }
+  @media(max-width:480px){
+    .tools-cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <a class="nav-logo" href="#home">OJT Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#members">Members</a></li>
+    <li><a href="#company">Company</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#deliverables">Deliverables</a></li>
+    <li><a href="#learning">Learning</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO / HOME ── -->
+<section id="home">
+  <div class="bg-ring"></div>
+  <div class="bg-ring2"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">On-the-Job Training · Batch 2026</div>
+      <h1 class="hero-title">
+        OJT E-Portfolio<br>
+        <em>Gencys Digital Trading Inc.</em>
+      </h1>
+      <p class="hero-body">
+        A comprehensive showcase of our on-the-job training experience, professional growth, and the real-world contributions we made at <strong>Gencys Digital Trading Inc</strong>.
+      </p>
+      <div class="hero-meta">
+        <div>
+          <div class="hero-stat-label">Members</div>
+          <div class="hero-stat-val">9</div>
+        </div>
+        <div>
+          <div class="hero-stat-label">Training Hours</div>
+          <div class="hero-stat-val">500 hrs</div>
+        </div>
+        <div>
+          <div class="hero-stat-label">Course</div>
+          <div class="hero-stat-val">BSIT / BSIS</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-deco">
+      <div class="hero-deco-card">
+        <div class="hdc-label">University</div>
+        <div class="hdc-val">Technological Institute of the Philippines</div>
+      </div>
+      <div class="hero-deco-card">
+        <div class="hdc-label">School Year</div>
+        <div class="hdc-val">2025 – 2026</div>
+      </div>
+      <div class="hero-deco-card">
+        <div class="hdc-label">Training Period</div>
+        <div class="hdc-val">February 2026 – May 2026</div>
+      </div>
+      <div class="hero-deco-card">
+        <div class="hdc-label">Supervisor</div>
+        <div class="hdc-val">Aina Mae Arroyo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 1: STUDENT PROFILES ── -->
+<section id="members">
+  <div class="section-inner">
+    <div class="section-tag">Section 01</div>
+    <h2 class="section-title">Student Profiles</h2>
+    <p class="section-sub">Meet the nine members of our OJT group — our backgrounds, courses, and aspirations.</p>
+
+    <div class="members-grid">
+
+      <!-- MEMBER 1 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/patrick.jpg"/>
+        <div class="member-name">John Patrick Rolloda</div>
+        <div class="member-role">Frontend and Backend Developer</div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mjprolloda@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>I am John Patrick Rolloda, a 4th Year Bachelor of Science In Information Technology student at Technological Institute of the Philippines.</p>
+           <p>Throughout my academic journey, I have develop strong skills in both frontend and backedn development, Working with technologies such as JavaScript, PHP, Programming Frameworks and such in various school projects and case studies.</p>
+          <p>I aspire to become a full-stack developer in a company where I can build meaningful digital products, continuously grow my technical expertise, and eventually lead development teams in the future.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 2 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/Scott.jpg"/>
+        <div class="member-name">Scott Andrew P. Mamhut</div>
+        <div class="member-role">Frontend and Backend Developer</div>
+        <div class="member-course">BSIT · 4th Year · IT42S2</div>
+        <div class="member-email">msapmamhut@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>My name is Scott Andrew P. Mamhut, a 4th-year student pursuing a Bachelor of Science in Information Technology at Technological Institute of the Philippines (TIP). I am currently undertaking my On-the-Job Training at Gencys Trading Inc., where I am gaining practical experience in full-stack web development.</p>
+           <p>Throughout my academic journey, I have specialized in web development, database design, and software engineering. I have worked on several capstone projects involving full-stack applications using React, Laravel, and MySQL. My strengths lie in problem-solving, backend architecture design, API development, and collaborative teamwork.</p>
+          <p>After graduation, I aspire to become a full-stack software engineer or technical lead at an innovative tech company. I am passionate about building scalable applications that solve real-world problems. I envision myself contributing to open-source projects and eventually mentoring junior developers in the field.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 3 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/roi2.jpg"/>
+        <div class="member-name">Roi Jefferson L. Mondido</div>
+        <div class="member-role">Quality Assurance</div>
+        <div class="member-course">BSIS · 4th Year · IT42S1</div>
+        <div class="member-email">mrjmondido@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>My nane is Roi Jefferson D. Mondido. I am a 4th-year Bachelor of Science in Information Technology student at the Technological Institute of the Philippines – Manila, currently completing my On-the-Job Training (OJT) as an Information Systems intern, where I serve as a Quality Assurance (QA) Tester.</p>
+           <p>Over the past few months, from February up to the present, I have gained hands-on experience in software testing and quality assurance processes. My role involves identifying bugs, executing test cases, and ensuring that systems meet both functional and user requirements. I have developed strong attention to detail, analytical thinking, and problem-solving skills while working closely with developers and team members to improve system performance and usability.</p>
+          <p>After completing my internship and graduating, I aim to pursue a career in Quality Assurance or software testing. I am motivated to continue learning industry practices, improving my technical skills, and contributing to the development of high-quality and efficient software systems.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 4 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/lyka.jpg"/>
+        <div class="member-name">Lyka Joyce Y. Arnesto</div>
+        <div class="member-role">Quality Assurance</div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mljarnesto@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>My name is Lyka Joyce Y. Arnesto, a fourth-year Bachelor of Science in Information Technology student at the Technological Institute of the Philippines – Manila. I am currently completing my academic requirements and gaining practical experience through my On-the-Job Training.</p>
+           <p>Throughout my academic journey, I have been exposed to various subjects such as programming, database management, system analysis, and software development. These courses helped me develop my technical skills and understanding of how systems work. I have also worked on projects that improved my problem-solving, critical thinking, and teamwork skills. I am particularly good at system analysis, documentation, and identifying issues, which are essential skills in Quality Assurance.</p>
+          <p>After graduation, I see myself working in the IT industry, particularly in Quality Assurance or software development. I am interested in roles that involve system testing, improving software quality, and contributing to system development. I aim to continuously enhance my skills, gain more experience, and become a competent IT professional in the future.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 5 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/angelo.jpg"/>
+        <div class="member-name">Dhan Angelo Bernardo</div>
+        <div class="member-role">Quality Assurance</div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mdabernardo@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>I’m Dhan Angelo M. Bernardo, a 4th-year IT student at TIP – Manila, currently finishing my degree while gaining real-world experience through my OJT.</p>
+           <p>During my studies, I’ve built a solid foundation in system development and quality assurance. A big part of my growth came from working on academic projects and my OJT experience, especially when I was testing the Hiraya Pay system. I focused on checking the registration form’s UI/UX, identifying bugs, and analyzing system behavior. Through this, I improved my attention to detail and learned how important proper documentation is using tools like Linear. I also realized the value of testing systems across different devices to ensure reliability and a smooth user experience. These experiences helped me become more analytical, patient, and detail-oriented.</p>
+          <p>After I graduate, I see myself pursuing a career in the IT industry, particularly in software testing, quality assurance, or system development. I enjoy making sure systems are efficient, reliable, and user-friendly, especially when they are used in real-world environments. I’m excited to continue improving my technical skills and to be part of a team that develops systems that truly make a difference.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 6 -->
+     <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/angel.jpg"/>
+        <div class="member-name">Angel Mae C. Pacquing</div>
+        <div class="member-role">Quality Assurance</div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mampacquing@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>My name is  Angel Mae L. Pacquing, and I am a fourth-year Bachelor of Science in Information Technology student at the Technological Institute of the Philippines – Manila. I am currently in the process of completing my academic requirements while gaining hands-on experience through my On-the-Job Training, which helps me apply what I have learned in a real-world setting.</p>
+          <p>During my studies, I have learned different areas of Information Technology such as programming, database management, analysis, and software development and such. These experiences allowed me to strengthen my technical knowledge and better understand how systems are designed and improved. Along the way, I have also developed important skills like problem-solving, critical thinking, adaptability, and teamwork and maybe leadership. I am confident in my ability to analyze systems, create clear documentation, and identify errors, which are valuable skills in ensuring software quality.</p>
+          <p>In the future, I plan to pursue a career in the IT industry, focusing on areas like Quality Assurance or software development. I am interested in roles where I can help bug systems, improve performance, and contribute to building reliable applications. I am motivated to keep learning, improve my skills, and gain experience that will help me grow into a skilled and responsible IT professional.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 7 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/Marjorie.jpg"/>
+        <div class="member-name">Marjorie Orenia</div>
+        <div class="member-role">Quality Assurance</div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mmorenia@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>I am Marjorie Orenia, a fourth-year Information Technology student at TIP – Manila, currently completing my degree while gaining hands-on experience through my On-the-Job Training (OJT).
+
+<p>Throughout my academic journey, I have developed a strong foundation in system development and quality assurance. Much of my growth came from both my coursework and practical experience during my OJT, particularly while working on the Hiraya Pay system. I was involved in evaluating the registration form’s user interface and user experience, identifying system bugs, and analyzing how the system behaves under different conditions. This experience enhanced my attention to detail and strengthened my understanding of the importance of clear and organized documentation using tools like Linear. I also learned the significance of testing systems across various devices to ensure consistency, reliability, and a seamless user experience. These experiences helped me become more analytical, patient, and detail-oriented in my work.
+
+<p>After graduation, I plan to build a career in the IT industry, focusing on areas such as software testing, quality assurance, or system development. I am particularly interested in ensuring that systems are efficient, dependable, and user-friendly, especially in real-world applications. I look forward to continuously developing my technical skills and contributing to a team that creates impactful and meaningful technology solutions.
+        </div>
+      </div>
+
+      <!-- MEMBER 8 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/vanessa.jpg"/>
+        <div class="member-name">Vanesa Joy B. Pana</div>
+        <div class="member-role">Social Media & Graphics </div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mvpana1@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>I am Vanesa Joy B. Pana, a 4th-year Bachelor of Science in Information Technology student at Technological Institute of the Philippines – Manila.</p>
+          <p>Throughout my academic journey, I have developed a strong interest in UI/UX design and front-end styling, especially in creating visually appealing and user-friendly digital interfaces. I have gained experience in using CSS for web design and creating prototypes, wireframes, and mockups through Figma. Working on different academic projects has helped me improve my creativity, problem-solving skills, and attention to detail, while also strengthening my understanding of user-centered design and functionality.</p>
+          <p>After graduation, I aim to pursue a career as a full-time UI/UX Designer where I can apply my skills and passion for design in a professional setting. I am most excited about work that allows me to create meaningful and functional user experiences that make digital products easier and more enjoyable to use. I look forward to continuously improving my expertise, learning from industry professionals, and contributing to innovative and impactful projects in the future.</p>
+        </div>
+      </div>
+
+      <!-- MEMBER 9 -->
+      <div class="member-card fade-up">
+        <img class="member-avatar" src="picture/maric.jpg"/>
+        <div class="member-name">Maric C. Bolonos</div>
+        <div class="member-role">Social Media & Graphics </div>
+        <div class="member-course">BSIT · 4th Year · IT42S1</div>
+        <div class="member-email">mmbolonos@tip.edu.ph</div>
+        <div class="member-bio">
+          <p>I am Maric G. Bolonos, a 4th-year Bachelor of Science in Information Technology student at Technological Institute of the Philippines (TIP) – Manila.</p>
+          <p>Throughout my academic journey, I have been exposed to various areas in technology, particularly programming and web development. My studies and projects have helped me build a strong foundation in front-end development, where I gained experience using CSS and Bootstrap. I have also developed skills in UI/UX design by creating wireframes, prototypes, and mockups using Figma. I am particularly interested in designing inclusive and accessible interfaces that are both visually appealing and user-friendly. I have some experience in traditional arts such as painting and sketching, and I’m gradually learning digital art to enhance my creativity in design.</p>
+          <p>After graduation, I see myself working as a UI/UX designer or front-end developer, focusing on creating meaningful digital experiences. I am especially passionate about developing accessible designs that cater to users with disabilities, ensuring that technology can be used by everyone. I am excited to continue learning, improving my skills, and contributing to projects that make a positive impact on users.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 2: COMPANY PROFILE ── -->
+<section id="company">
+  <div class="section-inner">
+    <div class="section-tag">Section 02</div>
+    <h2 class="section-title">Company Profile</h2>
+    <p class="section-sub">An overview of the organization where we completed our on-the-job training.</p>
+
+    <!-- Company Visual Section -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; align-items: center;">
+      <div style="text-align: center;">
+        <img src="picture/Gencys_Logo.png" alt="Gencys Logo" style="max-width: 100%; height: auto; border-radius: 8px;"/>
+      </div>
+      <div style="text-align: center;">
+        <img src="picture/Group_Photo.jpg" alt="OJT Group Photo" style="max-width: 100%; height: auto; border-radius: 8px;"/>
+      </div>
+    </div>
+
+    <div class="company-layout">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="info-block">
+          <div class="info-label">Company Name</div>
+          <div class="info-val">Gencys Digital Trading Inc.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Industry</div>
+          <div class="info-val">E-Commerce / Digital Retail</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Location</div>
+          <div class="info-val">3rd Floor, Plazuela de Molino, 9006 Bacoor Blvd, Bacoor, 4102 Cavite</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Company Size</div>
+          <div class="info-val">1,000 – 5,000 employees</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Main Products / Services</div>
+          <div class="info-val info-val-sm">E-commerce solutions, Business Development Program, Business Consultation, HR Consultation, and E-Commerce Masterclass — all aimed at helping Filipino entrepreneurs grow and scale their online businesses.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <div class="info-block">
+          <div class="info-label">Our Department</div>
+          <div class="info-val">IT Department / Software Development Team</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Our Role</div>
+          <div class="info-val">IT Intern</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Immediate Supervisor</div>
+          <div class="info-val">Aina Mae Arroyo – Operation Manager</div>
+        </div>
+        <div class="highlight-box">
+          <p>
+            Gencys Digital Trading Inc. is a Philippine-based e-commerce company founded in 2021 by Charlie Gengos and Hernani Razon, headquartered in Bacoor, Cavite. The company is dedicated to bridging the gap between profitability and longevity for Filipino entrepreneurs in the e-commerce market, with a focus on innovation, systems, and stability. It offers a comprehensive range of services including business development programs, HR consultation, and e-commerce masterclasses, while leveraging data analytics and automation to drive digital transformation for its partners. We completed our OJT under their IT Department, contributing to internal software development and systems support.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 3: BACKGROUND & PROJECT INVOLVEMENT ── -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag">Section 03</div>
+    <h2 class="section-title">Background of Training &amp; Project Involvement</h2>
+    <p class="section-sub">The projects we were involved in, their objectives, and our specific responsibilities.</p>
+
+    <div class="projects-list">
+
+      <div class="project-card fade-up">
+        <div class="project-num">01</div>
+        <div class="project-title">GenSpace — Appointment Management System</div>
+        <p class="project-body">
+           GenSpace is a MERN-stack (MongoDB, Express.js, React.js, Node.js) appointment management system designed to facilitate the scheduling and management of rooms and meetings for service providers. The project was inherited from a previous development team with significant technical debt — including broken imports, missing files, mismatched frontend-backend logic, and a hybrid Firebase-MongoDB database architecture. Our team took ownership of stabilizing, rebuilding, and extending the system, with John Patrick handling frontend and backend development, and Roi Jefferson managing quality assurance and bug tracking.
+        <div class="tag-row">
+         <span class="tag">MERN Stack Development</span>
+          <span class="tag">Firebase Authentication</span>
+          <span class="tag">QA &amp; Bug Tracking</span>
+          <span class="tag">Database Migration</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">02</div>
+        <div class="project-title">Momentum — Project Management Dashboard</div>
+        <p class="project-body">
+          Momentum is a full-featured project management application with multiple dashboard visualization tabs including Kanban, Gantt, Calendar, Chart, and TasksOverview. Scott was assigned as the primary frontend and backend developer, responsible for rewriting all major dashboard modules, implementing workspace management with a WorkspaceContext architecture, and securing the admin login flow after discovering a critical plaintext password vulnerability. The project was built with React.js and PHP, following REST API design conventions and Agile development practices with daily stand-up meetings.
+        <div class="tag-row">
+            <span class="tag">React.js &amp; PHP</span>
+          <span class="tag">Dashboard Visualization</span>
+          <span class="tag">Security Hardening</span>
+          <span class="tag">REST API Design</span>
+          <span class="tag">Workspace Management</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">03</div>
+        <div class="project-title">ChainLogic — Inventory &amp; Category Management System</div>
+        <p class="project-body">
+         ChainLogic is an inventory management system tracking raw materials, categories, and expiration dates. Lyka Joyce Arnesto (QA) was assigned to test the Category Library module (delete button functionality, PDF and Excel exports, checkbox selection for all rows, missing active/inactive status option) and the Expired Raw Materials module (filters, sorting, Shelf Life Date column validation). She verified proper parent-child category structure, integration with Inventory, and performed regression testing after fixes were deployed. Bugs were tracked through Jira.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Functional Testing</span>
+          <span class="tag">Boundary Value Analysis</span>
+          <span class="tag">Jira Bug Tracking</span>
+          <span class="tag">CSV/PDF Export Validation</span>
+          <span class="tag">Regression Testing</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">04</div>
+        <div class="project-title">HirayaPay — Financial Management with OCR Receipt Scanner</div>
+        <p class="project-body">
+         HirayaPay is a financial PWA/Android APK with OCR receipt scanning (Groq Vision + Tesseract fallback). Dhan Angelo Bernardo validated Row-Level Security (RLS) policies, UI performance on mobile devices (animation lag profiling), and security hardening (input validation, rate limiting). Marjorie Orenia performed regression testing on authentication, transaction modules, wallet balance updates, and OCR accuracy, comparing the Groq Vision pipeline against the Tesseract fallback. Angel Mae Pacquing tested cross-platform authentication (Google OAuth on web, Android APK, iOS PWA) and CSV export functionality across browsers, documenting iOS-specific limitations.
+        </p>
+        <div class="tag-row">
+          <span class="tag">RLS &amp; Data Security</span>
+          <span class="tag">OCR Validation (Groq/Tesseract)</span>
+          <span class="tag">iOS PWA / Android APK</span>
+          <span class="tag">Supabase Backend</span>
+          <span class="tag">Linear Issue Tracking</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">05</div>
+        <div class="project-title">SMM &amp; Graphics — Brand Communications &amp; Event Coverage</div>
+        <p class="project-body">
+          Maric Bolonos and Vanesa Pana supported Gencys’ Social Media and Graphics team, creating promotional materials, holiday pubmats (Independence Day, Heroes Day, Holy Week, Labor Day, etc.), event coverage for Hackathon 2026, and logo design for Valenin. Responsibilities included video editing of interview clips, managing the GDrive asset repository, designing Zoom meeting templates, and ensuring brand consistency across Facebook and internal channels. Vanesa also initiated a full reorganization of the SMM GDrive folder, greatly improving file accessibility.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Canva / Photoshop</span>
+          <span class="tag">Video Editing</span>
+          <span class="tag">Brand Identity (Valenin)</span>
+          <span class="tag">Content Strategy</span>
+          <span class="tag">Hackathon Documentation</span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 4: DELIVERABLES ── -->
+<section id="deliverables">
+  <div class="section-inner">
+    <div class="section-tag">Section 04</div>
+    <h2 class="section-title">Project Involvement Deliverables</h2>
+    <p class="section-sub">Tangible outputs we produced and their impact on the project and organization.</p>
+
+    <div class="deliverables-grid">
+
+      <div class="deliverable-card fade-up">
+        <div class="del-icon">🔐</div>
+        <div class="del-title">Rebuilt Authentication System (GenSpace)</div>
+        <p class="del-body">John Patrick Rolloda rebuilt the complete login, register, and forgot-password flows for both client and admin sides. Resolved database mismatch between MongoDB and Firebase, consolidated database to Firebase, and restored functionality that was left broken by the previous development team.</p>
+
+      </div>
+
+      <div class="deliverable-card fade-up">
+        <div class="del-icon">📊</div>
+        <div class="del-title">Dashboard Rewrite (Momentum)</div>
+        <p class="del-body">Scott Mamhut rewrote Kanban board with drag-drop functionality, Gantt chart with collapsible project groups, Calendar with event creation, and TasksOverview with category/list views. Implemented WorkspaceContext for dynamic workspace switching.</p>
+      </div>
+
+      <div class="deliverable-card fade-up">
+        <div class="del-icon">🐞</div>
+        <div class="del-title">Bug Reports & QA Tickets (Linear/Jira)</div>
+        <p class="del-body">The QA team (Roi, Lyka Joyce, Dhan Angelo, Marjorie, Angel Mae) created 50+ structured bug tickets with steps to reproduce, expected vs actual results, and severity levels. Included UI/UX findings, RLS policy validation, and OCR accuracy reports.</p>
+      </div>
+
+      <div class="deliverable-card fade-up">
+        <div class="del-icon">🎨</div>
+        <div class="del-title">Pubmats & Logo Designs</div>
+        <p class="del-body">Maric Bolonos and Vanesa Pana created holiday pubmats (Independence Day, Ninoy Aquino Day, National Heroes Day, All Saints'/All Souls' Day, Labor Day, Day of Valor), Valenin logo (Beaver style), Hackathon 2026 graphics, and Zoom meeting templates.</p>
+      </div>
+
+      <div class="deliverable-card fade-up">
+       <div class="del-icon">🔒</div>
+        <div class="del-title">Security Fixes</div>
+        <p class="del-body">Scott Mamhut discovered and immediately fixed a critical plaintext password vulnerability in admin login flow. Dhan Angelo Bernardo validated RLS policies ensuring users could only access their own data in HirayaPay.</p>  
+      </div>
+
+      <div class="deliverable-card fade-up">
+         <div class="del-icon">📝</div>
+        <div class="del-title">Weekly Progress Reports</div>
+        <p class="del-body">All nine interns submitted detailed weekly reports following the DSM three-part format (Yesterday's Accomplishment, Today's Tasks, Blockers), providing supervisors with clear visibility into project progress.</p>
+      </div>
+
+     <div class="deliverable-card fade-up">
+          <div class="del-icon">📱</div>
+        <div class="del-title">Cross-Platform Test Results</div>
+        <p class="del-body">Angel Mae Pacquing documented iOS PWA limitations for Google Authentication and CSV exports, providing clear guidance for developers and users across web, Android APK, and iOS platforms.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 5: PROFESSIONAL LEARNING ── -->
+<section id="learning">
+  <div class="section-inner">
+    <div class="section-tag">Section 05</div>
+    <h2 class="section-title">Professional Learning &amp; Development</h2>
+    <p class="section-sub">The skills, knowledge, and professional behaviors we developed throughout our training.</p>
+
+    <div class="learning-grid">
+      <div>
+        <p style="font-size:13px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;">Skills Developed</p>
+        <ul class="skill-list">
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Full-Stack Web Development</div>
+              <div class="skill-note">MERN stack (MongoDB, Express, React, Node.js), PHP, REST API design, Firebase integration</div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Quality Assurance & Testing</div>
+              <div class="skill-note">Functional testing, regression testing, boundary value analysis, equivalence partitioning, UI/UX validation</div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Bug Tracking & Project Management</div>
+              <div class="skill-note">Linear and Jira ticketing systems, structured bug reports with STR, priority assignment</div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Version Control & Collaboration</div>
+              <div class="skill-note">Git/GitHub workflows, branching strategies, merge conflict resolution, pull requests</div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Security Testing</div>
+              <div class="skill-note">RLS policy validation, input sanitization, XSS prevention, plaintext password remediation</div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Cross-Platform Testing</div>
+              <div class="skill-note">Web (Chrome/Safari/Edge), Android APK, iOS PWA — documenting platform-specific behaviors</div>
+            </div>
+          </li>
+           <li class="skill-item">
+            <div class="skill-dot"></div>
+            <div>
+              <div class="skill-name">Graphic Design & Content Strategy</div>
+              <div class="skill-note">Pubmat creation, logo design, video editing, digital asset management (GDrive)</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="narrative-block">
+        <blockquote>
+          "The internship at Gencys was formative not because everything went smoothly, but precisely because it did not. Real software development is messy, and navigating that mess taught us more than any well-structured academic project could."
+        </blockquote>
+        <p>
+          Our OJT experience at Gencys gave us direct exposure to how software is developed in a commercial setting, far beyond what we experienced in classroom exercises. We learned to work with inherited codebases laden with technical debt, handle real-world bug tracking workflows, and communicate progress professionally through daily stand-ups and structured reports.
+        <p style="margin-top:1rem">
+         The team dynamics were eye-opening. We learned that QA is not just "finding bugs" but providing actionable information that helps developers fix issues efficiently. A vague bug report wastes everyone's time; a clear, reproducible bug report saves hours. We also learned that security vulnerabilities (like the plaintext password issue Scott discovered) require immediate action and professional responsibility.
+        </p>
+        <p style="margin-top:1rem">
+          This experience reinforced that "works on my machine" is never a valid quality standard. Cross-platform testing on actual devices (Android APK, iOS PWA, multiple browsers) is essential for production-ready applications. We will carry this discipline forward into our careers, always testing on the platforms our users actually use.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 6: TOOLS & TECHNIQUES ── -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-tag">Section 06</div>
+    <h2 class="section-title">Modern Techniques, Skills &amp; Tools</h2>
+    <p class="section-sub">Technologies, frameworks, and methodologies we encountered and applied on the job.</p>
+
+    <div class="tools-cols">
+
+      <div>
+        <div class="tool-group-title">Development Tools</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Visual Studio Code</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Git & GitHub</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Postman (API Testing)</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Firebase Console</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Supabase</div>
+      </div>
+
+      <div>
+       <div class="tool-group-title">Frameworks & Technologies</div>
+        <div class="tool-item"><div class="tool-bullet"></div>React.js / Node.js / Express.js</div>
+        <div class="tool-item"><div class="tool-bullet"></div>PHP & Laravel-style REST APIs</div>
+        <div class="tool-item"><div class="tool-bullet"></div>MongoDB / Firebase / Supabase</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Groq Vision OCR / Tesseract</div>
+        <div class="tool-item"><div class="tool-bullet"></div>HTML5 / CSS3 / JavaScript ES6</div>
+      </div>
+
+      <div>
+         <div class="tool-group-title">QA, PM & Design Tools</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Linear / Jira (Bug Tracking)</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Discord / Zoom (Daily Stand-ups)</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Google Drive (Asset Management)</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Canva / Adobe Photoshop</div>
+        <div class="tool-item"><div class="tool-bullet"></div>Video Editing Software</div>
+      </div>
+
+    </div>
+
+    <div class="highlight-box" style="margin-top:2.5rem">
+      <p>
+        <strong style="color:var(--accent3)">Methodology used:</strong> The team followed an Agile-adjacent development framework with daily stand-up meetings (DSMs) conducted via Zoom/Discord. Tasks were managed through Linear and Jira ticketing systems with workflow stages (To Do → In Progress → In Review → Done). The QA team worked in parallel with developers, performing functional testing, regression testing, and bug tracking in iterative cycles. Version control followed Git feature branching with pull requests and code reviews before merging to master.
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 7: DISCIPLINE-RELATED SOLUTIONS ── -->
+<section id="solutions">
+  <div class="section-inner">
+    <div class="section-tag">Section 07</div>
+    <h2 class="section-title">Discipline-Related Solutions Integrated</h2>
+    <p class="section-sub">How our academic training contributed real solutions to the company's challenges.</p>
+
+    <div class="solution-card fade-up">
+      <div class="solution-label">Challenge Identified</div>
+      <div class="solution-title">Legacy Codebase with Technical Debt (GenSpace)</div>
+      <p class="solution-body">
+        The GenSpace codebase was inherited with missing files, broken imports, mismatched frontend-backend logic, and a hybrid Firebase-MongoDB architecture causing authentication failures. John Patrick Rolloda applied software engineering principles of separation of concerns and database normalization to consolidate the database entirely into Firebase, tracing and relinking all affected modules. He systematically rebuilt the login, register, and forgot-password flows, restoring full authentication functionality that had been broken for months.
+      </p>
+    </div>
+
+    <div class="solution-card fade-up">
+      <div class="solution-label">Challenge Identified</div>
+      <div class="solution-title">Critical Security Vulnerability (Momentum)</div>
+      <p class="solution-body">
+         During regression testing, Scott Mamhut discovered that passwords were being stored in plaintext in the admin login flow due to a type mismatch where validation expected an integer instead of a string. Applying principles of authentication theory and the principle of least privilege, he fixed the vulnerability immediately before pushing to the remote repository, removed password logging from production, and improved login error UI to avoid user enumeration vulnerabilities.
+    </div>
+
+    <div class="solution-card fade-up">
+      <div class="solution-label">Challenge Identified</div>
+      <div class="solution-title">Data Privacy & Isolation (HirayaPay)</div>
+      <p class="solution-body">
+        The HirayaPay application handles users' financial data including transactions, wallet balances, and savings goals. Dhan Angelo Bernardo applied Row-Level Security (RLS) testing principles to validate that users could only see their own data. He created multiple test accounts and verified cross-account isolation, ensuring compliance with data privacy regulations and preventing unauthorized data access.
+      </p>
+    </div>
+
+    <div class="solution-card fade-up">
+      <div class="solution-label">Challenge Identified</div>
+      <div class="solution-title">Cross-Platform Inconsistencies (HirayaPay)</div>
+      <p class="solution-body">
+        Google Authentication worked correctly on web and Android but failed on iOS PWA due to differences in Safari's OAuth redirect handling. Angel Mae Pacquing applied cross-platform testing theory and equivalence partitioning to systematically document the issue and provide developers with specific reproduction steps, enabling informed decisions about fixes or documented limitations for users.
+      </p>
+    </div>
+
+    <div class="solution-card fade-up">
+      <div class="solution-label">Challenge Identified</div>
+      <div class="solution-title">Disorganized Digital Asset Repository (SMM)</div>
+      <p class="solution-body">
+        The SMM team's GDrive repository had no consistent folder structure, making file retrieval time-consuming and error-prone. Vanesa Joy Pana applied information architecture principles and took initiative to sort the entire repository, creating logical folder hierarchies that matched how team members searched for files, significantly improving team efficiency and reducing the risk of using outdated assets.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SECTION 8: REFLECTION ── -->
+<section id="reflection">
+  <div class="section-inner">
+    <div class="section-tag">Section 08</div>
+    <h2 class="section-title">Summary of OJT Reflection</h2>
+    <p class="section-sub">Looking back on everything — our challenges, growth, and the road ahead.</p>
+
+    <div class="reflection-grid">
+
+      <div class="reflect-card fade-up">
+        <div class="reflect-heading">Biggest Challenges</div>
+        <p class="reflect-body">
+         The most significant challenge was adapting to a professional codebase that was significantly larger and more complex than anything we had worked with in school. The GenSpace project had inherited technical debt — missing files, broken imports, and an inconsistent database architecture — requiring systematic analysis before any fix could be applied. Merge conflicts between feature branches (MOM-12 and MOM-15-16) also tested our version control skills. For QA members, the absence of a live testing site was a recurring blocker that limited testing coverage. For SMM members, organizing dispersed assets and meeting tight holiday posting schedules required discipline and initiative.
+      </div>
+
+      <div class="reflect-card fade-up">
+        <div class="reflect-heading">Proudest Successes</div>
+        <p class="reflect-body">
+          John Patrick successfully rebuilding the entire authentication system from scratch, restoring functionality that had been broken for months. Scott discovering and fixing the plaintext password vulnerability within the same session, preventing a potential security breach. Lyka Joyce's thorough testing of ChainLogic's Category Library and Expired Raw Materials modules, identifying critical bugs in delete, export, and filtering functionality. The QA team's comprehensive cross-platform testing of HirayaPay, documenting iOS PWA limitations. Maric and Vanesa's holiday pubmat series and Hackathon 2026 media coverage. Vanesa's proactive GDrive reorganization, an unassigned task that improved the entire SMM team's workflow.
+        </p>
+      </div>
+
+      <div class="reflect-card fade-up">
+        <div class="reflect-heading">Personal Growth</div>
+        <p class="reflect-body">
+           Each of us grew in different ways. John Patrick learned that systematic analysis before action is more valuable than rushing to code. Scott learned that security vulnerabilities can hide in plain sight and must be fixed immediately, not reported and left for later. Roi discovered that QA is not just testing but providing actionable information — a bug that cannot be clearly described cannot be reliably fixed. Lyka Joyce learned that patience and proactiveness are essential; she used idle time to learn Jira and explore systems rather than waiting passively. Dhan Angelo and Marjorie developed structured testing methodologies that they will carry into their careers. Angel Mae learned that "works on my machine" is never a valid quality standard. Maric learned that design is fundamentally about communication, not aesthetics alone. Vanesa learned that organization is a professional skill and that taking initiative without being assigned is valued.
+      </div>
+
+      <div class="reflect-card fade-up">
+        <div class="reflect-heading">Key Takeaways for Our Future</div>
+        <p class="reflect-body">
+          First, systematic analysis before action. In school, problems are well-defined; in the real world, the first and most important skill is understanding what is broken and why. Second, clear communication is a technical skill — a vague bug report wastes time, a reproducible one saves hours. Third, security is everyone's responsibility; always question assumptions about data handling, even in code you did not write. Fourth, cross-platform testing is not optional — users will access your application on every device imaginable. Fifth, initiative matters — Vanesa's GDrive reorganization was unassigned but improved the entire team's workflow. We will carry these lessons into our remaining academic years and our future careers, approaching every project with greater discipline, humility, and attention to quality.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="final-quote fade-up">
+      <q>The internship at Gencys was genuinely formative not because everything went smoothly, but precisely because it did not. Walking into a codebase that was partially broken, architecturally inconsistent, and left incomplete by a previous team is exactly the kind of challenge that real software development presents. Navigating it taught us more about the craft of software engineering than any well-structured academic project could.</q>
+      <cite>—OJT Group IT42S1, Technological Institute of the Philippines, April 2026</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>OJT E-Portfolio · <span>Technological Institute of the Philippines</span> · BSIT - BSIS · 2025</p>
+  <p style="margin-top:.5rem">Completed at <span>Gencys Digital Trading Inc.</span> · February 2026 - May 2026</p>
+</footer>
+
+<script>
+  // Smooth scroll fade-in on scroll
+  const faders = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  faders.forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+
+  // Mobile menu toggle
+  let menuOpen = false;
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(13,15,14,0.97);padding:1.5rem 2rem;gap:1.25rem;border-bottom:1px solid rgba(93,202,165,0.15)';
+    } else {
+      links.style.cssText = 'display:none';
+    }
+  }
+</script>
+
+</body>
+</html>
